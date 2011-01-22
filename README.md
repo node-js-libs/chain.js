@@ -1,10 +1,10 @@
-**chain.js is a microframework (678 bytes when gzipped) for handling asynchronous JavaScript**
+**chain.js is a microframework for handling asynchronous JavaScript**
 
 It comes with built-in methods for running functions sequentially or in parallel, and lets you define your own methods to handle complex logic.
 
 ### run()
 
-Run each argument in parallel and then progress to the next method once all are complete
+Run each argument in parallel and then progress to the next method in the chain once all are complete
 
     run(func1, func2).then(func3, func4);
     
@@ -21,19 +21,10 @@ We can combine both built-ins to handle more complicated logic
 **Some things to note:**
     
 - `then()` is an alias for the previous method in the chain
-- all methods have a *then<Method>* alias - i.e. `run() === thenRun()`
+- all methods have a *then<Method>* alias - e.g. `run() === thenRun()`
+- separate chains run in their own context
 
 ## Adding your own methods
-
-See [load.js](https://github.com/chriso/load.js) for an example of a library built on top of chain.js
-
-    load('script1.js', 'script2.js').then('script3.js').thenRun(function () {
-        alert('Done.');
-    });
-    
-    //Script1 & 2 are loaded in parallel - Script3 is loaded once 1 & 2 have finished
-    
-Adding your own is easy
 
     var num = 0;
     addMethod('add', function (args, argc) {
@@ -42,6 +33,16 @@ Adding your own is easy
     });
     
     add(1, 2, 3).then(4, 5, 6); //num === 21
+
+[load.js](https://github.com/chriso/load.js) is an example of what you can do with chain.js
+
+    //Script1 & 2 are loaded in parallel - script3 is loaded when they're complete
+    
+    load('script1.js', 'script2.js').then('script3.js').thenRun(function () {
+        console.log('Done.');
+    });
+    
+The load.js addMethod is [here](https://github.com/chriso/load.js/blob/master/load.js)
     
 ## But wait. How do we know when a function is complete?
 
