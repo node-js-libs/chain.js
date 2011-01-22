@@ -1,6 +1,6 @@
-**chain.js is a microframework for handling asynchronous JavaScript**
+**chain.js is a microframework for handling asynchronous JavaScript (704 bytes gzipped)**
 
-It comes with built-in methods for running functions sequentially or in parallel, and lets you define your own methods to handle complex logic.
+It comes with built-in methods for running functions sequentially or in parallel, and lets you define your own methods to handle complex logic (e.g [load.js](https://github.com/chriso/load.js)).
 
 ### run()
 
@@ -32,9 +32,9 @@ We can combine built-ins to handle more complicated logic
 
 ## Adding your own methods
 
-[load.js](https://github.com/chriso/load.js) is an example of what you can do with chain.js - it allows you to lazy load scripts in the browser and easily handle complex dependency chains
+[load.js](https://github.com/chriso/load.js) ([this code](https://github.com/chriso/load.js/blob/master/load.js) in particular) is an example of what you can do with chain.js - it allows you to lazy load scripts in the browser and easily handle complex dependency chains
 
-    //Script1 & 2 are loaded in parallel - script3 is loaded when they're complete
+    //Load script1 and script2 in parallel - when they're complete, load script3
     
     load('script1.js', 'script2.js').then('script3.js').thenRun(function () {
         console.log('Done.');
@@ -43,8 +43,6 @@ We can combine built-ins to handle more complicated logic
 Or maybe we need to defer loading a script
 
     defer(500).thenLoad('myscript.js');
-    
-The load.js addMethod is [here](https://github.com/chriso/load.js/blob/master/load.js)
 
 Another example
 
