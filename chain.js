@@ -92,7 +92,7 @@
         }
         if (!--len) {
             //e.g. adding 'run' also adds 'thenRun' as a method
-            handlers['then' + ethod[0].toUpperCase() + method.substr(1)] = handler;
+            handlers['then' + method[0].toUpperCase() + method.substr(1)] = handler;
         }
         createChain(exports);
     }
@@ -132,7 +132,7 @@
         }
     });
 
-    //Run each function in parallel and progress once any function is complete
+    //Run each function in parallel and progress when any function completes
     add('first', function (args, arg_len) {
         var self = this, next = function () {
             self.next(true);
@@ -144,7 +144,7 @@
         }
     });
     
-    //Run each function in parallel and progress immediately
+    //Run each function in parallel but don't wait for any to finish
     add('all', function (args, arg_len) {
         for (var i = 0; !this.halt && i < arg_len; i++) {
             args.shift().call(this, nop, this.error);
