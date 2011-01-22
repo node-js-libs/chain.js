@@ -1,6 +1,6 @@
 { "name"          : "chain",
   "description"   : "A microframework for handling (a)sync events",
-  "version"       : "0.1.0",
+  "version"       : "0.1.1",
   "homepage"      : "http://github.com/chriso/chain.js",
   "keywords"      : ["async","asynchronous","events","parallel"],
   "author"        : "Chris O'Hara <cohara87@gmail.com>",

@@ -1,25 +1,5 @@
-/*
- * Copyright (c) 2010 Chris O'Hara <cohara87@gmail.com>
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- * 
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+/* Copyright (c) 2010 Chris O'Hara <cohara87@gmail.com>. MIT Licensed (https://github.com/chriso/chain.js/blob/master/LICENSE) */
+ 
 (function(exports) {
     
     exports = exports || {};
@@ -73,7 +53,7 @@
             context.then = context[lastMethod];
         }
         
-        context.callMethod = function (method, args) {
+        context.call = function (method, args) {
             args.unshift(method);
             stack.unshift(args);
             context.next(true);
@@ -106,7 +86,7 @@
                 return self.next(true);
             }
             try {
-                if (null != args.shift().call(this, next, self.error)) {
+                if (null != args.shift().call(self, next, self.error)) {
                     next();
                 }
             } catch (e) {
@@ -125,15 +105,15 @@
                 self.next(true);
             }
         }
-        for (var i = 0, len = arg_len; !this.halt && i < len; i++) {
-            if (null != args[i].call(this, chain, this.error)) {
+        for (var i = 0, len = arg_len; !self.halt && i < len; i++) {
+            if (null != args[i].call(self, chain, self.error)) {
                 chain();
             }
         }
     });
 
     //Attach error handler(s)
-    add('onError', false, function (args, arg_len) {
+    add('onError', function (args, arg_len) {
         var lastError = this.error;
         this.error = function (err) {
             lastError();
