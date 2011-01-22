@@ -173,4 +173,18 @@ module.exports = {
         assert.equal(28, num);
     },
     
+    'test chain.defer()': function () {
+        var num = 0;
+        chain.defer(50).thenRun(function () {
+            num = 1;
+        });
+        
+        setTimeout(function() { 
+            assert.equal(0, num); 
+        }, 10);
+        
+        setTimeout(function() { 
+            assert.equal(1, num); 
+        }, 80);
+    },
 }

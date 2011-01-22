@@ -119,6 +119,14 @@
         }
     });
 
+    //defer() - Defer execution of the next method
+    add('defer', function (args) {
+        var self = this;
+        setTimeout(function () {
+            self.next(true);
+        }, args.shift());
+    });
+    
     //onError() - Attach an error handler
     add('onError', function (args, arg_len) {
         var self = this;

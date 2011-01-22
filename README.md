@@ -14,7 +14,13 @@ Run each function sequentially
 
     chain(func1, func2, func3).then(func4); // => equivalent to run(func1).then(func2).then(func3).then(func4);
 
-We can combine both built-ins to handle more complicated logic
+### defer()
+
+Defer execution of the next method in the chain
+
+    defer(500).thenRun(func1); //Delay execution for 0.5s
+    
+We can combine built-ins to handle more complicated logic
 
     run(func1, func2).then(func3, func4).thenChain(func5, func6).thenRun(func7);
 
