@@ -56,7 +56,7 @@
             }
             (function (alias) {
                 context[alias] = function () {
-                    var uc, args = Array.prototype.slice.call(arguments);
+                    var args = Array.prototype.slice.call(arguments);
                     args.unshift(alias);
                     if (!stack) {
                         return createChain({}, [args], alias);
@@ -132,26 +132,6 @@
         }
     });
 
-    //Run each function in parallel and progress when any function completes
-    add('first', function (args, arg_len) {
-        var self = this, next = function () {
-            self.next(true);
-        }
-        for (var i = 0; !this.halt && i < arg_len; i++) {
-            if (null != args.shift().call(this, next, this.error)) {
-                this.next(true);
-            }
-        }
-    });
-    
-    //Run each function in parallel but don't wait for any to finish
-    add('all', function (args, arg_len) {
-        for (var i = 0; !this.halt && i < arg_len; i++) {
-            args.shift().call(this, nop, this.error);
-        }
-        this.next(true);
-    });
-    
     //Attach error handler(s)
     add('onError', false, function (args, arg_len) {
         var lastError = this.error;
