@@ -21,7 +21,7 @@ We can combine both built-ins to handle more complicated logic
 **Some things to note:**
     
 - `then()` is an alias for the previous method in the chain
-- all methods have a *then<Method>* alias - e.g. `run() === thenRun()`
+- all methods have their own *then<Method>* alias - e.g. `run() === thenRun()`
 - separate chains run in their own context
 
 ## Adding your own methods
@@ -34,7 +34,7 @@ We can combine both built-ins to handle more complicated logic
     
     add(1, 2, 3).then(4, 5, 6); //num === 21
 
-[load.js](https://github.com/chriso/load.js) is an example of what you can do with chain.js
+[load.js](https://github.com/chriso/load.js) is an example of what you can do with chain.js - it allows you to lazy load scripts in the browser and easily handle complex dependency chains
 
     //Script1 & 2 are loaded in parallel - script3 is loaded when they're complete
     
@@ -46,8 +46,9 @@ The load.js addMethod is [here](https://github.com/chriso/load.js/blob/master/lo
     
 ## But wait. How do we know when a function is complete?
 
-- Synchronous functions are complete when they return something other than `null`
-- Asynchronous functions are complete when they call `next()` - next is passed as the first argument to each function in the chain
+Synchronous functions are complete when they return something other than `null`
+
+Asynchronous functions are complete when they call `next()` - next is passed as the first argument to each function in the chain
 
     run(function (next) {
         setTimeout(function () {
@@ -56,7 +57,7 @@ The load.js addMethod is [here](https://github.com/chriso/load.js/blob/master/lo
         }, 100);
     });
 
-## Passing state between functions
+## Passing state along the chain
 
 All functions are called in the same context so variables can be shared using `this`
 
@@ -69,7 +70,7 @@ All functions are called in the same context so variables can be shared using `t
 
 ## Error handling
 
-Use the `onError` method for adding an error handler (the default is `throw`). All methods in the chain are passed an error callback as the second argument
+Use the `onError` method for adding an error handler. All methods in the chain are passed an error callback as the second argument and wrapped in a try..catch
 
     onError(function (err) {
         //Handle the error
@@ -84,7 +85,7 @@ With async functions, it's ok to define the error handler at the end of the chai
 ## Installation
 
 Bundle [chain-min.js](https://github.com/chriso/chain.js/blob/master/chain-min.js) or run `npm install chain`
-    
+
 ## License
 
 (MIT License)
