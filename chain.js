@@ -4,7 +4,7 @@
     
     exports = exports || {};
     
-    var handlers = {}, createChain, add, nop = function(){};
+    var handlers = {}, createChain, add;
     
     createChain = function (context, stack, lastMethod) {
     

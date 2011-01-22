@@ -1,4 +1,4 @@
-**chain.js is a microframework for handling asynchronous JavaScript (704 bytes gzipped)**
+**chain.js is a microframework for handling asynchronous JavaScript** - *699 bytes gzipped*
 
 It comes with built-in methods for running functions sequentially or in parallel, and lets you define your own methods to handle complex logic (e.g [load.js](https://github.com/chriso/load.js)).
 
