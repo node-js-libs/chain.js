@@ -2,13 +2,15 @@
 
 It comes with built-in methods for running functions sequentially or in parallel, and lets you define your own methods to handle complex logic.
 
-Bundle [chain-min.js](https://github.com/chriso/chain.js/blob/master/chain-min.js) or run `npm install chain`
+### run()
 
-**run()** - Run each argument in parallel and then progress to the next method once all are complete
+Run each argument in parallel and then progress to the next method once all are complete
 
     run(func1, func2).then(func3, func4);
     
-**chain()** - Run each function sequentially
+### chain()
+
+Run each function sequentially
 
     chain(func1, func2, func3).then(func4); // => equivalent to run(func1).then(func2).then(func3).then(func4);
 
@@ -21,7 +23,7 @@ We can combine both built-ins to handle more complicated logic
 - `then()` is an alias for the previous method in the chain
 - all methods have a *then<Method>* alias - i.e. `run() === thenRun()`
 
-### Adding your own methods
+## Adding your own methods
 
 See [load.js](https://github.com/chriso/load.js) for an example of a library built on top of chain.js
 
@@ -41,7 +43,7 @@ Adding your own is easy
     
     add(1, 2, 3).then(4, 5, 6); //num === 21
     
-### But wait. How do we know when a function is complete?
+## But wait. How do we know when a function is complete?
 
 - Synchronous functions are complete when they return something other than `null`
 - Asynchronous functions are complete when they call `next()` - next is passed as the first argument to each function in the chain
@@ -78,7 +80,11 @@ With async functions, it's ok to define the error handler at the end of the chai
 
     run(async1, async2).then(async3).onError(my_handler);
     
-### License
+## Installation
+
+Bundle [chain-min.js](https://github.com/chriso/chain.js/blob/master/chain-min.js) or run `npm install chain`
+    
+## License
 
 (MIT License)
 
