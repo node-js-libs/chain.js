@@ -32,14 +32,6 @@ We can combine built-ins to handle more complicated logic
 
 ## Adding your own methods
 
-    var num = 0;
-    addMethod('add', function (args, argc) {
-        while(argc--) num += args[argc];
-        this.next(true); //Call the next method in the chain
-    });
-    
-    add(1, 2, 3).then(4, 5, 6); //num === 21
-
 [load.js](https://github.com/chriso/load.js) is an example of what you can do with chain.js - it allows you to lazy load scripts in the browser and easily handle complex dependency chains
 
     //Script1 & 2 are loaded in parallel - script3 is loaded when they're complete
@@ -47,8 +39,22 @@ We can combine built-ins to handle more complicated logic
     load('script1.js', 'script2.js').then('script3.js').thenRun(function () {
         console.log('Done.');
     });
+
+Or maybe we need to defer loading a script
+
+    defer(500).thenLoad('myscript.js');
     
 The load.js addMethod is [here](https://github.com/chriso/load.js/blob/master/load.js)
+
+Another example
+
+    var num = 0;
+    addMethod('add', function (args, argc) {
+        while(argc--) num += args[argc];
+        this.next(true); //Call the next method in the chain
+    });
+    
+    add(1, 2, 3).then(4, 5, 6); //num === 21
     
 ## But wait. How do we know when a function is complete?
 
