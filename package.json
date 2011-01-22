@@ -1,0 +1,20 @@
+{ "name"          : "chain",
+  "description"   : "A microframework for handlign (a)sync events",
+  "version"       : "0.1.0",
+  "homepage"      : "http://github.com/chriso/chain.js",
+  "keywords"      : ["async","asynchronous","events","parallel"],
+  "author"        : "Chris O'Hara <cohara87@gmail.com>",
+  "main"          : "chain.js",
+  "bugs": {
+    "mail": "cohara87@gmail.com",
+    "web": "http://github.com/chriso/chain.js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/chriso/chain.js.git"
+  },
+  "engines": { "node": ">=0.2.5" },
+  "licenses": [{ 
+    "type": "MIT"
+  }]
+}
