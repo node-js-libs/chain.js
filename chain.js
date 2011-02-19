@@ -1,5 +1,4 @@
 /* Copyright (c) 2010 Chris O'Hara <cohara87@gmail.com>. MIT Licensed */
-
 (function(exports) {
 
     exports = exports || {};
@@ -10,7 +9,7 @@
 
         var inHandler = context.halt = false;
 
-        //The default error handler 
+        //The default error handler
         context.error = function (e) {
             throw e;
         }
@@ -40,6 +39,16 @@
             (function (alias) {
                 context[alias] = function () {
                     var args = Array.prototype.slice.call(arguments);
+                    if (alias === 'onError') {
+                        if (stack) {
+                            handlers.onError.apply(context, [args, args.length]);
+                            return context;
+                        } else {
+                            var new_context = {};
+                            handlers.onError.apply(new_context, [args, args.length]);
+                            return createChain(new_context, null, 'onError');
+                        }
+                    }
                     args.unshift(alias);
                     if (!stack) {
                         return createChain({}, [args], alias);
@@ -112,8 +121,11 @@
                 self.next(true);
             }
         }
+        var error = function (e) {
+            self.error(e);
+        };
         for (var i = 0, len = arg_len; !self.halt && i < len; i++) {
-            if (null != args[i].call(self, chain, self.error)) {
+            if (null != args[i].call(self, chain, error)) {
                 chain();
             }
         }
@@ -136,7 +148,6 @@
                 args[i].call(self, err);
             }
         }
-        this.next(true);
     });
 
 }(this));
