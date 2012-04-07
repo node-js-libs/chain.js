@@ -12,7 +12,7 @@
         //The default error handler
         context.error = function (e) {
             throw e;
-        }
+        };
 
         //Run the next method in the chain
         context.next = function (exit) {
@@ -29,7 +29,7 @@
                 }
             }
             return context;
-        }
+        };
 
         //Bind each method to the context
         for (var alias in handlers) {
@@ -43,11 +43,11 @@
                         if (stack) {
                             handlers.onError.apply(context, [args, args.length]);
                             return context;
-                        } else {
-                            var new_context = {};
-                            handlers.onError.apply(new_context, [args, args.length]);
-                            return createChain(new_context, null, 'onError');
                         }
+
+                        var new_context = {};
+                        handlers.onError.apply(new_context, [args, args.length]);
+                        return createChain(new_context, null, 'onError');
                     }
                     args.unshift(alias);
                     if (!stack) {
@@ -56,7 +56,7 @@
                     context.then = context[alias];
                     stack.push(args);
                     return inHandler ? context : context.next();
-                }
+                };
             }(alias));
         }
 
@@ -71,14 +71,14 @@
             args.unshift(method);
             stack.unshift(args);
             context.next(true);
-        }
+        };
 
         return context.next();
-    }
+    };
 
     //Add a custom method/handler (see below)
     add = exports.addMethod = function (method /*, alias1, alias2, ..., callback */) {
-        var args = Array.prototype.slice.call(arguments), 
+        var args = Array.prototype.slice.call(arguments),
             handler = args.pop();
         for (var i = 0, len = args.length; i < len; i++) {
             if (typeof args[i] === 'string') {
@@ -91,7 +91,7 @@
             handlers['then' + method.substr(0,1).toUpperCase() + method.substr(1)] = handler;
         }
         createChain(exports);
-    }
+    };
 
     //chain() - Run each function sequentially
     add('chain', function (args) {
@@ -108,7 +108,7 @@
             } catch (e) {
                 self.error(e);
             }
-        }
+        };
         next();
     });
 
@@ -120,7 +120,7 @@
             } else if (!--arg_len) {
                 self.next(true);
             }
-        }
+        };
         var error = function (e) {
             self.error(e);
         };
@@ -147,7 +147,7 @@
             for (var i = 0; i < arg_len; i++) {
                 args[i].call(self, err);
             }
-        }
+        };
     });
 
 }(this));
